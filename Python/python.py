@@ -31,6 +31,17 @@ def getLink(url, search, attr):
 
 
 # In[13]:
+def download(SongName):
+    SongToSearch = SongName+' lyrics'
+    getURL = "https://www.youtube.com/results?search_query="
+    attr = 'yt-uix-tile-link'
+    div = getLink(getURL, SongToSearch, attr)
+    songLink = 'https://www.youtube.com' + div
+    getURL = "https://www.youtubeinmp3.com/download/?video="
+    attr = 'button'
+    div = getLink(getURL, songLink, attr)
+    downloadLink = 'https://www.youtubeinmp3.com'+div
+    save(downloadLink, SongName+'.mp3')
 
 
 
