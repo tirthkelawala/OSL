@@ -42,7 +42,15 @@ sub player {
  
 sub bot {
  return if move('O', 5);
- 
+ my $move;
+ my @open = ($board =~ /(\d)/g);
+ for $move (@open) { return move('O',$move) if grep {/$move/ && /O\d?O/} @wins; }
+ for $move (@open) { return move('O',$move) if grep {/$move/ && /X\d?X/} @wins; }
+ for (@open) { return move('O',$_) if ( check('O', $_) > 1 ); }
+ for $move (@open) {
+  if ( my @seq = check('O', $move) ) {
+   my ($opposite) = $seq[0] =~ /([^O$move])/;
+   return move('O', $move) if ( check('X', $opposite) < 2 );
   }
  }
  move ('O', $open[0]);
